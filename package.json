@@ -1,0 +1,22 @@
+{
+  "name": "stretto",
+  "version": "0.0.1",
+  "description": "Hello Exponent!",
+  "author": null,
+  "private": true,
+  "main": "main.js",
+  "dependencies": {
+    "exponent": "~10.0.0",
+    "react": "~15.3.2",
+    "react-native": "github:exponentjs/react-native#sdk-10.1.2",
+    "react-native-socketio": "^0.3.0",
+    "socket.io-client": "^1.5.0"
+  },
+  "jscsConfig": {
+    "preset": "airbnb",
+    "requireShorthandArrowFunctions": false
+  },
+  "jshintConfig": {
+    "esversion": 6
+  }
+}
