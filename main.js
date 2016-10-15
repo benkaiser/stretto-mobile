@@ -7,20 +7,32 @@ import {
   Text,
   View
 } from 'react-native';
+import { Scene, Router } from 'react-native-router-flux';
+import { Provider, connect } from 'react-redux';
+import { createStore } from 'redux';
 
 import HomeView from './src/components/home';
+import Playlists from './src/containers/playlists.js';
+import Songs from './src/containers/songs.js';
 import Websockets from './src/controllers/websockets';
+import StrettoApp from './src/reducers';
 
-import { Scene, Router } from 'react-native-router-flux';
+const RouterWithRedux = connect()(Router);
+
+let store = createStore(StrettoApp);
 
 class App extends React.Component {
   render() {
     return (
-      <Router>
-        <Scene key="root" style={styles.container}>
-          <Scene key="home" component={HomeView} title="Stretto" initial={true} />
-        </Scene>
-      </Router>
+      <Provider store={store}>
+        <RouterWithRedux>
+          <Scene key="root" style={styles.container}>
+            <Scene key="home" component={HomeView} title="Stretto" />
+            <Scene key="playlists" component={Playlists} title="Stretto" initial={true} />
+            <Scene key="songs" component={Songs} title="Songs" />
+          </Scene>
+        </RouterWithRedux>
+      </Provider>
     );
   }
 }
@@ -31,6 +43,6 @@ const styles = StyleSheet.create({
   },
 });
 
-new Websockets();
+new Websockets(store);
 
 Exponent.registerRootComponent(App);

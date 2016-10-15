@@ -1,25 +1,26 @@
+import { setSongs, setPlaylists } from '../actions';
+
 window.navigator.userAgent = 'ReactNative';
 const io = require('socket.io-client/socket.io');
 
 export default class Websockets  {
-  constructor() {
+  constructor(store) {
     console.log('test');
     const socket = io('https://personal.kaiserapps.com', {
       transports: ['websocket'],
     });
 
     socket.on('connect', () => {
-      console.log('connected!');
       socket.emit('fetch_playlists');
       socket.emit('fetch_songs');
     });
 
     socket.on('playlists', (data) => {
-      console.log(data.playlists[0]);
+      store.dispatch(setPlaylists(data.playlists));
     });
 
     socket.on('songs', (data) => {
-      console.log(data.songs[data.songs.length-1]);
+      store.dispatch(setSongs(data.songs));
     });
   }
 }
