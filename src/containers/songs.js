@@ -1,3 +1,4 @@
+import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import SongsView from '../components/songs_view';
 
@@ -8,7 +9,8 @@ const mapStateToProps = (state, ownProps) => {
   console.log(playlist);
   playlist.songs = playlist.songs.map((playlistSong) => {
     return state.songs.filter((song) => song._id == playlistSong._id)[0];
-  });
+  }).filter(Boolean);
+
   return {
     title: playlist.title,
     items: playlist.songs,
@@ -17,8 +19,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    itemPressed: (data) => {
-      console.log(data);
+    itemPressed: (song) => {
+      Actions.player({ song: song });
     },
   };
 };

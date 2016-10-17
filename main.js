@@ -12,10 +12,11 @@ import { Provider, connect } from 'react-redux';
 import { createStore } from 'redux';
 
 import HomeView from './src/components/home';
-import Playlists from './src/containers/playlists.js';
-import Songs from './src/containers/songs.js';
-import Websockets from './src/controllers/websockets';
+import Player from './src/containers/player';
+import Playlists from './src/containers/playlists';
+import Songs from './src/containers/songs';
 import StrettoApp from './src/reducers';
+import Websockets from './src/controllers/websockets';
 
 const RouterWithRedux = connect()(Router);
 
@@ -28,6 +29,7 @@ class App extends React.Component {
         <RouterWithRedux>
           <Scene key="root" style={styles.container}>
             <Scene key="home" component={HomeView} title="Stretto" />
+            <Scene key="player" component={Player} title="Song" />
             <Scene key="playlists" component={Playlists} title="Stretto" initial={true} />
             <Scene key="songs" component={Songs} title="Songs" />
           </Scene>

@@ -10,6 +10,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 
 import Colors from '../values/colors';
+import Song from '../models/song';
 
 class SongsView extends React.Component {
   constructor(props) {
@@ -38,11 +39,12 @@ class SongsView extends React.Component {
   }
 
   renderRow(rowData) {
+    let song = new Song(rowData);
     return (
       <TouchableHighlight
-        onPress={this.props.itemPressed.bind(this, rowData)}
+        onPress={this.props.itemPressed.bind(this, song)}
         underlayColor='#CCCCCC' >
-        <Text style={styles.text}>{rowData.title}</Text>
+        <Text style={styles.text}>{song.get('title')}</Text>
       </TouchableHighlight>
     );
   }
